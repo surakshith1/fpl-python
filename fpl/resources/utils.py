@@ -1,5 +1,9 @@
-from .entities import PlayerEntry
+from .entities import Entry, EntryHistory
 
 
-def player_entity(entity_data) -> PlayerEntry:
-    return PlayerEntry(entity_data)
+def entity(entity_data) -> Entry:
+    return Entry(entity_data)
+
+
+def entity_history(entity_history_data) -> EntryHistory:
+    return EntryHistory(entity_history_data)

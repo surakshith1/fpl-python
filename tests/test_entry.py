@@ -1,11 +1,11 @@
 import unittest
-from fpl import PlayerEntry
+from fpl import Entry
 
 
 class TestEntry(unittest.TestCase):
     def test_entry(self):
         # Create an instance of the Entry class
-        entry = PlayerEntry().fetch(59865)
+        entry = Entry().fetch(59865)
 
         # Assert that the id attribute is equal to 59865
         self.assertEqual(entry.id, 59865)

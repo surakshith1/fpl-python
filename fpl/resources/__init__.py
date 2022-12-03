@@ -1,5 +1,7 @@
-from .player_entry import PlayerEntry
+from .entry import Entry
+from .entry_history import EntryHistory
 
 __all__ = [
-    'PlayerEntry'
+    'Entry',
+    'EntryHistory'
 ]

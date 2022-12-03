@@ -1,4 +1,4 @@
-class PlayerEntry:
+class Entry:
     def __init__(self, data):
         self.id = data.get("id", None)
         self.joined_time = data.get("joined_time", None)
@@ -22,3 +22,47 @@ class PlayerEntry:
         self.last_deadline_value = data.get("last_deadline_value", None)
         self.last_deadline_total_transfers = data.get("last_deadline_total_transfers", None)
         self.leagues = data.get("leagues", {})
+
+
+class EntryHistory:
+    def __init__(self, data):
+        self.current = []
+        for current_data in data.get("current", []):
+            self.current.append(GameWeekHistoryItem(current_data))
+
+        self.past = []
+        for past_data in data.get("past", []):
+            self.past.append(PastHistoryItem(past_data))
+
+        self.chips = []
+        for chips_data in data.get("chips", []):
+            self.chips.append(ChipItem(chips_data))
+
+
+class GameWeekHistoryItem:
+    def __init__(self, data):
+        self.event = data.get("event", None)
+        self.points = data.get("points", None)
+        self.total_points = data.get("total_points", None)
+        self.rank = data.get("rank", None)
+        self.rank_sort = data.get("rank_sort", None)
+        self.overall_rank = data.get("overall_rank", None)
+        self.bank = data.get("bank", None)
+        self.value = data.get("value", None)
+        self.event_transfers = data.get("event_transfers", None)
+        self.event_transfers_cost = data.get("event_transfers_cost", None)
+        self.points_on_bench = data.get("points_on_bench", None)
+
+
+class PastHistoryItem:
+    def __init__(self, data):
+        self.season_name = data.get("season_name", None)
+        self.total_points = data.get("total_points", None)
+        self.rank = data.get("rank", None)
+
+
+class ChipItem:
+    def __init__(self, data):
+        self.name = data.get("name", None)
+        self.event = data.get("event", None)
+        self.time = data.get("time", None)
