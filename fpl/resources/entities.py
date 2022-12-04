@@ -28,41 +28,77 @@ class EntryHistory:
     def __init__(self, data):
         self.current = []
         for current_data in data.get("current", []):
-            self.current.append(GameWeekHistoryItem(current_data))
+            self.current.append(self.GameWeekHistoryItem(current_data))
 
         self.past = []
         for past_data in data.get("past", []):
-            self.past.append(PastHistoryItem(past_data))
+            self.past.append(self.PastHistoryItem(past_data))
 
         self.chips = []
         for chips_data in data.get("chips", []):
-            self.chips.append(ChipItem(chips_data))
+            self.chips.append(self.ChipItem(chips_data))
+
+    class GameWeekHistoryItem:
+        def __init__(self, data):
+            self.event = data.get("event", None)
+            self.points = data.get("points", None)
+            self.total_points = data.get("total_points", None)
+            self.rank = data.get("rank", None)
+            self.rank_sort = data.get("rank_sort", None)
+            self.overall_rank = data.get("overall_rank", None)
+            self.bank = data.get("bank", None)
+            self.value = data.get("value", None)
+            self.event_transfers = data.get("event_transfers", None)
+            self.event_transfers_cost = data.get("event_transfers_cost", None)
+            self.points_on_bench = data.get("points_on_bench", None)
+
+    class PastHistoryItem:
+        def __init__(self, data):
+            self.season_name = data.get("season_name", None)
+            self.total_points = data.get("total_points", None)
+            self.rank = data.get("rank", None)
+
+    class ChipItem:
+        def __init__(self, data):
+            self.name = data.get("name", None)
+            self.event = data.get("event", None)
+            self.time = data.get("time", None)
 
 
-class GameWeekHistoryItem:
+class League:
+    class NewEntries:
+        def __init__(self, has_next, page, results):
+            self.has_next = has_next
+            self.page = page
+            self.results = results
+
+    class League:
+        def __init__(self, id, name):
+            self.id = id
+            self.name = name
+
+    class Standings:
+        def __init__(self, has_next, page, results):
+            self.has_next = has_next
+            self.page = page
+            self.results = results
+
     def __init__(self, data):
-        self.event = data.get("event", None)
-        self.points = data.get("points", None)
-        self.total_points = data.get("total_points", None)
-        self.rank = data.get("rank", None)
-        self.rank_sort = data.get("rank_sort", None)
-        self.overall_rank = data.get("overall_rank", None)
-        self.bank = data.get("bank", None)
-        self.value = data.get("value", None)
-        self.event_transfers = data.get("event_transfers", None)
-        self.event_transfers_cost = data.get("event_transfers_cost", None)
-        self.points_on_bench = data.get("points_on_bench", None)
-
-
-class PastHistoryItem:
-    def __init__(self, data):
-        self.season_name = data.get("season_name", None)
-        self.total_points = data.get("total_points", None)
-        self.rank = data.get("rank", None)
-
-
-class ChipItem:
-    def __init__(self, data):
-        self.name = data.get("name", None)
-        self.event = data.get("event", None)
-        self.time = data.get("time", None)
+        self.last_updated_data = data.get('last_updated_data', '')
+        new_entries = data.get('new_entries', {})
+        self.new_entries = self.NewEntries(
+            new_entries.get('has_next', False),
+            new_entries.get('page', 1),
+            new_entries.get('results', [])
+        )
+        league = data.get('league', {})
+        self.league = self.League(
+            league.get('id', 0),
+            league.get('name', '')
+        )
+        standings = data.get('standings', {})
+        self.standings = self.Standings(
+            standings.get('has_next', False),
+            standings.get('page', 1),
+            standings.get('results', [])
+        )
