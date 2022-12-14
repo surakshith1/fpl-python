@@ -65,7 +65,7 @@ class EntryHistory:
             self.time = data.get("time", None)
 
 
-class League:
+class LeagueDetails:
     class NewEntries:
         def __init__(self, has_next, page, results):
             self.has_next = has_next
