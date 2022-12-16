@@ -102,3 +102,31 @@ class LeagueDetails:
             standings.get('page', 1),
             standings.get('results', [])
         )
+
+
+class Fixtures:
+
+    def __init__(self, json_response):
+        self.fixtures = []
+        for data in json_response:
+            self.fixtures.append(self.Fixture(data))
+
+    class Fixture:
+        def __init__(self, data):
+            self.code = data.get('code', 0)
+            self.event = data.get('event', 0)
+            self.finished = data.get('finished', False)
+            self.finished_provisional = data.get('finished_provisional', False)
+            self.id = data.get('id', 0)
+            self.kickoff_time = data.get('kickoff_time', '')
+            self.minutes = data.get('minutes', 0)
+            self.provisional_start_time = data.get('provisional_start_time', False)
+            self.started = data.get('started', False)
+            self.team_a = data.get('team_a', 0)
+            self.team_a_score = data.get('team_a_score', None)
+            self.team_h = data.get('team_h', 0)
+            self.team_h_score = data.get('team_h_score', None)
+            self.stats = data.get('stats', [])
+            self.team_h_difficulty = data.get('team_h_difficulty', 0)
+            self.team_a_difficulty = data.get('team_a_difficulty', 0)
+            self.pulse_id = data.get('pulse_id', 0)
